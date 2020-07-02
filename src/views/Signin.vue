@@ -62,13 +62,13 @@
               </v-row>
             </v-card-actions>
           </form>
-          <v-row>
+          <!-- <v-row>
             <v-col cols="8" offset="2">
               <router-link :to="{ name: 'Sign up' }"
                 >Don't you have an account? Please Sign up first!</router-link
               >
             </v-col>
-          </v-row>
+          </v-row> -->
         </v-card>
       </v-col>
     </v-row>
