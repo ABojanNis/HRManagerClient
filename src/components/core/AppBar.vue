@@ -12,7 +12,13 @@
             }}</v-toolbar-title></router-link
           >
           <v-spacer></v-spacer>
-          <v-btn text large class="mx-2">
+          <v-btn
+            v-if="user && user.is_admin"
+            text
+            large
+            class="mx-2"
+            to="/users"
+          >
             <v-icon>mdi-account-group</v-icon> {{ $t("app_bar_users") }}
           </v-btn>
           <v-btn text large class="mx-2" to="/skills">
@@ -36,6 +42,10 @@
               <v-list>
                 <v-list-item>
                   <v-list-item-title>
+                    <v-btn text block to="/change-password">
+                      <v-icon color="accent" class="mr-2">mdi-lock</v-icon>
+                      {{ $t("app_bar_change_password") }}
+                    </v-btn>
                     <v-btn text block @click="logout">
                       <v-icon color="error" class="mr-2">mdi-logout</v-icon>
                       {{ $t("app_bar_logout") }}

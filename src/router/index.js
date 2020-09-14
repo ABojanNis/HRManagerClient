@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Meta from "vue-meta";
+import store from "@/store";
 
 import paths from "./paths";
 
@@ -45,6 +46,13 @@ router.beforeEach(function(to, from, next) {
   if (
     to.matched.some(record => record.meta.requiresGuest) &&
     Vue.prototype.$auth.isAuthenticated()
+  ) {
+    next({ path: "/dashboard" });
+  }
+  if (
+    to.matched.some(record => record.meta.requiresAdmin) &&
+    Vue.prototype.$auth.isAuthenticated() &&
+    !store.getters["app/me"].is_admin
   ) {
     next({ path: "/dashboard" });
   }

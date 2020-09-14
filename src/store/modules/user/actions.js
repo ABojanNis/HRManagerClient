@@ -35,5 +35,15 @@ export default {
     if (result && result.data) {
       return result.data;
     }
+  },
+
+  async changePassword(context, payload) {
+    let result = await Vue.prototype.$repos.UserRepository.changePassword(
+      payload.userId,
+      payload.data
+    );
+    if (result && result.data) {
+      return result.data;
+    }
   }
 };

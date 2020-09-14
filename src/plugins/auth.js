@@ -8,7 +8,7 @@ var auth_options = {
   responseDataKey: "data",
   logoutUrl: "api/auth/logout",
   loginUrl: "/auth/login",
-  registerUrl: "/auth/signup",
+  // registerUrl: "/auth/signup",
   providers: {},
 
   bindResponseInterceptor: function($auth) {

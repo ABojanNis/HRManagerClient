@@ -10,11 +10,6 @@ export default [
         name: "Sign in",
         view: "Signin"
       }
-      // {
-      //   path: "/signup",
-      //   name: "Sign up",
-      //   view: "Signup"
-      // }
     ]
   },
   {
@@ -33,6 +28,12 @@ export default [
         view: "Skills"
       },
       {
+        path: "/users",
+        name: "Users",
+        view: "Users",
+        meta: { requiresAdmin: true }
+      },
+      {
         path: "/experiences",
         name: "Experiences",
         view: "Experiences"
@@ -46,6 +47,11 @@ export default [
         path: "/candidate/:id",
         name: "Candidate",
         view: "Candidate"
+      },
+      {
+        path: "/change-password",
+        name: "ChangePassword",
+        view: "ChangePassword"
       }
     ]
   }

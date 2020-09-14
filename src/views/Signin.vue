@@ -17,17 +17,17 @@
                 <v-row>
                   <v-col cols="8" offset="2">
                     <validation-provider
-                      name="Email"
-                      rules="required|email"
+                      name="Username"
+                      rules="required"
                       v-slot="{ errors }"
                     >
                       <v-text-field
-                        v-model="user.email"
+                        v-model="user.username"
                         :error-messages="errors"
-                        label="Your email"
-                        type="email"
+                        label="Your username"
+                        type="text"
                         validate-on-blur
-                        prepend-icon="mdi-email"
+                        prepend-icon="mdi-account-circle"
                       ></v-text-field>
                     </validation-provider>
                   </v-col>
@@ -38,7 +38,6 @@
                       name="Password"
                       rules="required|min:6"
                       v-slot="{ errors }"
-                      vid="password"
                     >
                       <v-text-field
                         v-model="user.password"

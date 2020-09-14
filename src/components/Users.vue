@@ -17,7 +17,7 @@
             <v-dialog v-model="dialog" max-width="900px">
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" dark class="mb-2" v-on="on">{{
-                  $t("skills_add_new")
+                  $t("users_add_new")
                 }}</v-btn>
               </template>
               <v-card>
@@ -30,17 +30,103 @@
                     <v-container>
                       <validation-observer ref="obs1">
                         <v-row>
-                          <v-col cols="8" offset="2">
+                          <v-col cols="6" offset="3">
                             <validation-provider
-                              name="Skill description"
+                              name="Username"
                               rules="required"
                               v-slot="{ errors }"
                             >
                               <v-text-field
-                                v-model="editedItem.description"
-                                :label="$t('skills_model_description')"
+                                v-model="editedItem.username"
+                                :label="$t('users_model_username')"
                                 :error-messages="errors"
                               ></v-text-field>
+                            </validation-provider>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col cols="6" offset="3">
+                            <validation-provider
+                              name="Name"
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                v-model="editedItem.name"
+                                :label="$t('users_model_name')"
+                                :error-messages="errors"
+                              ></v-text-field>
+                            </validation-provider>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col cols="6" offset="3">
+                            <validation-provider
+                              name="Surname"
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                v-model="editedItem.surname"
+                                :label="$t('users_model_surname')"
+                                :error-messages="errors"
+                              ></v-text-field>
+                            </validation-provider>
+                          </v-col>
+                        </v-row>
+                        <template v-if="editedId === -1">
+                          <v-row>
+                            <v-col cols="6" offset="3">
+                              <validation-provider
+                                name="Password"
+                                rules="required|min:6"
+                                v-slot="{ errors }"
+                                vid="password"
+                              >
+                                <v-text-field
+                                  v-model="editedItem.password"
+                                  :error-messages="errors"
+                                  :label="$t('users_model_password')"
+                                  type="password"
+                                  counter
+                                ></v-text-field>
+                              </validation-provider>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="6" offset="3">
+                              <validation-provider
+                                name="Password confirmation"
+                                rules="required|confirmed:password"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  v-model="editedItem.password_confirmation"
+                                  :error-messages="errors"
+                                  :label="
+                                    $t('users_model_password_confirmation')
+                                  "
+                                  type="password"
+                                  counter
+                                ></v-text-field>
+                              </validation-provider>
+                            </v-col>
+                          </v-row>
+                        </template>
+                        <v-row>
+                          <v-col cols="6" offset="3">
+                            <validation-provider
+                              name="Is admin"
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-select
+                                :items="isAdmin"
+                                v-model="editedItem.is_admin"
+                                :error-messages="errors"
+                                :label="$t('users_model_is_admin')"
+                                item-text="name"
+                              ></v-select>
                             </validation-provider>
                           </v-col>
                         </v-row>
@@ -72,6 +158,9 @@
               :server-items-length="total"
               :options.sync="pagination"
             >
+              <template v-slot:item.is_admin="{ item }">
+                {{ item.is_admin ? "Yes" : "No" }}
+              </template>
               <template v-slot:item.actions="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
@@ -151,16 +240,28 @@ export default {
         value: "_id"
       },
       {
+        text: i18n.t("users_model_username"),
+        align: "start",
+        sortable: false,
+        value: "username"
+      },
+      {
         text: i18n.t("users_model_name"),
         align: "start",
         sortable: false,
-        value: "full_name"
+        value: "name"
       },
       {
-        text: i18n.t("users_model_email"),
+        text: i18n.t("users_model_surname"),
         align: "start",
         sortable: false,
-        value: "email"
+        value: "surname"
+      },
+      {
+        text: i18n.t("users_model_is_admin"),
+        align: "start",
+        sortable: false,
+        value: "is_admin"
       },
       {
         text: i18n.t("datatable_actions"),
@@ -176,12 +277,17 @@ export default {
     total: 0,
     search: "",
     deleteDialog: false,
-    selectedItemId: null
+    selectedItemId: null,
+    isAdmin: [
+      { name: "Yes", value: true },
+      { name: "No", value: false }
+    ]
   }),
 
   computed: {
     ...mapGetters({
-      loading: "app/loading"
+      loading: "app/loading",
+      user: "app/me"
     }),
     formTitle() {
       return this.editedId === -1
@@ -223,7 +329,6 @@ export default {
           this.users = result.data;
           this.total = result.meta.pagination.total;
         })
-        .catch(err => console.log(err))
         .finally(() => {
           this.setFetchLoading(false);
         });
@@ -250,7 +355,6 @@ export default {
             this.deleteDialog = false;
           }
         })
-        .catch(err => console.log(err))
         .finally(() => {
           this.setLoading(false);
         });
@@ -268,7 +372,8 @@ export default {
         if (result) {
           if (this.editedId !== -1) {
             this.setLoading(true);
-            this.updateUser({ userId: this.editedId, data: this.editedItem })
+            let data = { ...this.editedItem, user: this.user };
+            this.updateUser({ userId: this.editedId, data: data })
               .then(response => {
                 if (response) {
                   this.$toast.show(response.message);
@@ -279,13 +384,13 @@ export default {
                   this.close();
                 }
               })
-              .catch(err => console.log(err))
               .finally(() => {
                 this.setLoading(false);
               });
           } else {
             this.setLoading(true);
-            this.storeUser({ data: this.editedItem })
+            let data = { ...this.editedItem, user: this.user };
+            this.storeUser({ data: data })
               .then(response => {
                 if (response) {
                   this.$toast.success(response.message);
@@ -296,7 +401,6 @@ export default {
                   this.close();
                 }
               })
-              .catch(err => console.log(err))
               .finally(() => {
                 this.setLoading(false);
               });

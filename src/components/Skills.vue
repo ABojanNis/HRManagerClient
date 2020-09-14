@@ -217,7 +217,6 @@ export default {
           this.skills = result.data;
           this.total = result.meta.pagination.total;
         })
-        .catch(err => console.log(err))
         .finally(() => {
           this.setFetchLoading(false);
         });
@@ -244,7 +243,6 @@ export default {
             this.deleteDialog = false;
           }
         })
-        .catch(err => console.log(err))
         .finally(() => {
           this.setLoading(false);
         });
@@ -273,7 +271,6 @@ export default {
                   this.close();
                 }
               })
-              .catch(err => console.log(err))
               .finally(() => {
                 this.setLoading(false);
               });
@@ -290,7 +287,6 @@ export default {
                   this.close();
                 }
               })
-              .catch(err => console.log(err))
               .finally(() => {
                 this.setLoading(false);
               });

@@ -50,6 +50,6 @@ window.addEventListener("unhandledrejection", event => {
   var promise = event.promise;
 
   promise.catch(error => {
-    EventBus.$emit("serverError", { component: app, error: error.response });
+    EventBus.$emit("serverError", { component: app, error: error });
   });
 });

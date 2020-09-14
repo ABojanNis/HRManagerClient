@@ -305,6 +305,33 @@
                   item.name + " " + item.surname
                 }}</router-link>
               </template>
+              <template v-slot:item.city="{ item }">
+                {{ item.city ? item.city : $t("not_assigned") }}
+              </template>
+              <template v-slot:item.education="{ item }">
+                {{ item.education ? item.education : $t("not_assigned") }}
+              </template>
+              <template v-slot:item.department="{ item }">
+                {{ item.department ? item.department : $t("not_assigned") }}
+              </template>
+              <template v-slot:item.primary_skill="{ item }">
+                {{
+                  item.primary_skill ? item.primary_skill : $t("not_assigned")
+                }}
+              </template>
+              <template v-slot:item.secondary_skill="{ item }">
+                {{
+                  item.secondary_skill
+                    ? item.secondary_skill
+                    : $t("not_assigned")
+                }}
+              </template>
+              <template v-slot:item.other_skills="{ item }">
+                {{ item.other_skills ? item.other_skills : $t("not_assigned") }}
+              </template>
+              <template v-slot:item.experience="{ item }">
+                {{ item.experience ? item.experience : $t("not_assigned") }}
+              </template>
               <template v-slot:item.createdAt="{ item }">
                 {{ item.createdAt | moment("DD.MM.YYYY") }}
               </template>
@@ -530,7 +557,6 @@ export default {
           this.candidates = result.data;
           this.total = result.meta.pagination.total;
         })
-        .catch(err => console.log(err))
         .finally(() => {
           this.setFetchLoading(false);
         });
@@ -554,7 +580,6 @@ export default {
             this.deleteDialog = false;
           }
         })
-        .catch(err => console.log(err))
         .finally(() => {
           this.setLoading(false);
         });
@@ -587,7 +612,6 @@ export default {
                   this.close();
                 }
               })
-              .catch(err => console.log(err))
               .finally(() => {
                 this.setLoading(false);
               });
@@ -604,7 +628,6 @@ export default {
                   this.close();
                 }
               })
-              .catch(err => console.log(err))
               .finally(() => {
                 this.setLoading(false);
               });
