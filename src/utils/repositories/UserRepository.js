@@ -32,13 +32,20 @@ export default class UserRepository extends Repo {
     return super.update(id, data);
   }
 
-  delete(id) {
-    return super.delete(id);
+  delete(id, isAdmin) {
+    return this.http
+      .delete(this.resource + "/" + id + "/" + isAdmin)
+      .then(response => {
+        return Promise.resolve(response);
+      })
+      .catch(response => {
+        return Promise.reject(response);
+      });
   }
 
-  changePassword(userId, data) {
+  changePassword(id, data) {
     return this.http
-      .post(this.resource + "/" + userId + "/changePassword", data)
+      .post(this.resource + "/" + id + "/changePassword", data)
       .then(response => {
         return Promise.resolve(response);
       })

@@ -9,206 +9,207 @@
         </v-row>
       </v-card-title>
       <v-card-text>
-        <v-row class="text-center">
-          <v-col cols="8" offset="2">
-            <span class="headline">{{ $t("candidates_modal_details") }}</span>
-          </v-col>
-        </v-row>
         <v-row>
           <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_name") + ":" }}
-              {{
-                candidate && candidate.name
-                  ? candidate.name
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_surname") + ":" }}
-              {{
-                candidate && candidate.surname
-                  ? candidate.surname
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_email") + ":" }}
-              {{
-                candidate && candidate.email
-                  ? candidate.email
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_phone") + ":" }}
-              {{
-                candidate && candidate.phone
-                  ? candidate.phone
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_linkedin") + ":" }}
-              {{
-                candidate && candidate.linkedin
-                  ? candidate.linkedin
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="mb-2">
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_city") + ":" }}
-              {{
-                candidate && candidate.city
-                  ? candidate.city
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="text-center">
-          <v-col cols="8" offset="2">
-            <span class="headline">{{ $t("candidates_modal_education") }}</span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_education") + ":" }}
-              {{
-                candidate && candidate.education
-                  ? candidate.education
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="mb-2">
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_department") + ":" }}
-              {{
-                candidate && candidate.department
-                  ? candidate.department
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="text-center">
-          <v-col cols="8" offset="2">
-            <span class="headline">{{ $t("candidates_modal_skills") }}</span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_primary_skill") + ":" }}
-              {{
-                candidate && candidate.primary_skill
-                  ? candidate.primary_skill
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_secondary_skill") + ":" }}
-              {{
-                candidate && candidate.secondary_skill
-                  ? candidate.secondary_skill
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_other_skills") + ":" }}
-              {{
-                candidate && candidate.other_skills
-                  ? candidate.other_skills
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="mb-2">
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_experience") + ":" }}
-              {{
-                candidate && candidate.experience
-                  ? candidate.experience
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="text-center">
-          <v-col cols="8" offset="2">
-            <span class="headline">{{
-              $t("candidates_modal_worker_status")
-            }}</span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_status") + ":" }}
-              {{
-                candidate && candidate.status
-                  ? candidate.status
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_company") + ":" }}
-              {{
-                candidate && candidate.company
-                  ? candidate.company
-                  : $t("not_assigned")
-              }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row class="mb-2">
-          <v-col cols="8" offset="2">
-            <span>
-              {{ $t("candidates_model_desired_salary") + ":" }}
-              {{
-                candidate && candidate.desired_salary
-                  ? candidate.desired_salary
-                  : $t("not_assigned")
-              }}
-            </span>
+            <v-tabs v-model="tab" grow class="mb-4">
+              <v-tab>{{ $t("candidates_modal_details") }}</v-tab>
+              <v-tab>{{ $t("candidates_modal_education") }}</v-tab>
+              <v-tab>{{ $t("candidates_modal_skills") }}</v-tab>
+              <v-tab>{{ $t("candidates_modal_worker_status") }}</v-tab>
+            </v-tabs>
+            <v-tabs-items v-model="tab">
+              <v-tab-item>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_name") + ":" }}
+                      {{
+                        candidate && candidate.name
+                          ? candidate.name
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_surname") + ":" }}
+                      {{
+                        candidate && candidate.surname
+                          ? candidate.surname
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_email") + ":" }}
+                      {{
+                        candidate && candidate.email
+                          ? candidate.email
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_phone") + ":" }}
+                      {{
+                        candidate && candidate.phone
+                          ? candidate.phone
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_linkedin") + ":" }}
+                      {{
+                        candidate && candidate.linkedin
+                          ? candidate.linkedin
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row class="mb-2">
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_city") + ":" }}
+                      {{
+                        candidate && candidate.city
+                          ? candidate.city
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+
+              <v-tab-item>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_education") + ":" }}
+                      {{
+                        candidate && candidate.education
+                          ? candidate.education
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row class="mb-2">
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_department") + ":" }}
+                      {{
+                        candidate && candidate.department
+                          ? candidate.department
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+
+              <v-tab-item>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_primary_skill") + ":" }}
+                      {{
+                        candidate && candidate.primary_skill
+                          ? candidate.primary_skill
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_secondary_skill") + ":" }}
+                      {{
+                        candidate && candidate.secondary_skill
+                          ? candidate.secondary_skill
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_other_skills") + ":" }}
+                      {{
+                        candidate && candidate.other_skills
+                          ? candidate.other_skills
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row class="mb-2">
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_experience") + ":" }}
+                      {{
+                        candidate && candidate.experience
+                          ? candidate.experience
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+
+              <v-tab-item>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_status") + ":" }}
+                      {{
+                        candidate && candidate.status
+                          ? candidate.status
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_company") + ":" }}
+                      {{
+                        candidate && candidate.company
+                          ? candidate.company
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+                <v-row class="mb-2">
+                  <v-col>
+                    <span>
+                      {{ $t("candidates_model_desired_salary") + ":" }}
+                      {{
+                        candidate && candidate.desired_salary
+                          ? candidate.desired_salary
+                          : $t("not_assigned")
+                      }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+            </v-tabs-items>
           </v-col>
         </v-row>
       </v-card-text>
@@ -349,7 +350,8 @@ export default {
     editedItem: {},
     edit: false,
     deleteDialog: false,
-    selectedItemId: null
+    selectedItemId: null,
+    tab: 0
   }),
   created() {
     this.getCandidate({ candidateId: this.$route.params.id }).then(result => {

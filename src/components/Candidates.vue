@@ -32,247 +32,281 @@
                 <v-form ref="form" @submit.prevent="submit">
                   <v-card-text>
                     <v-container>
-                      <validation-observer ref="obs1">
-                        <v-row class="text-center">
-                          <v-col cols="8" offset="2">
-                            <span class="headline">{{
-                              $t("candidates_modal_details")
-                            }}</span>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate name"
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.name"
-                                :label="$t('candidates_model_name')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate surname"
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.surname"
-                                :label="$t('candidates_model_surname')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate email"
-                              rules="email"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.email"
-                                :label="$t('candidates_model_email')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate phone"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.phone"
-                                :label="$t('candidates_model_phone')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate LinkedIn"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.linkedin"
-                                :label="$t('candidates_model_linkedin')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate city"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.city"
-                                :label="$t('candidates_model_city')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row class="text-center">
-                          <v-col cols="8" offset="2">
-                            <span class="headline">{{
-                              $t("candidates_modal_education")
-                            }}</span>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate education"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.education"
-                                :label="$t('candidates_model_education')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate department"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.department"
-                                :label="$t('candidates_model_department')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row class="text-center">
-                          <v-col cols="8" offset="2">
-                            <span class="headline">{{
-                              $t("candidates_modal_skills")
-                            }}</span>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate primary skill"
-                              v-slot="{ errors }"
-                            >
-                              <v-autocomplete
-                                v-model="editedItem.primary_skill"
-                                :items="skills"
-                                item-text="description"
-                                item-value="description"
-                                :label="$t('candidates_model_primary_skill')"
-                                :error-messages="errors"
-                              ></v-autocomplete>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate secondary skill"
-                              v-slot="{ errors }"
-                            >
-                              <v-autocomplete
-                                v-model="editedItem.secondary_skill"
-                                :items="skills"
-                                item-text="description"
-                                item-value="description"
-                                :label="$t('candidates_model_secondary_skill')"
-                                :error-messages="errors"
-                              ></v-autocomplete>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate other skill"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.other_skills"
-                                :label="$t('candidates_model_other_skills')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate experience"
-                              v-slot="{ errors }"
-                            >
-                              <v-autocomplete
-                                v-model="editedItem.experience"
-                                :items="experiences"
-                                item-text="name"
-                                item-value="name"
-                                :label="$t('candidates_model_experience')"
-                                :error-messages="errors"
-                              ></v-autocomplete>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row class="text-center">
-                          <v-col cols="8" offset="2">
-                            <span class="headline">{{
-                              $t("candidates_modal_worker_status")
-                            }}</span>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="2">
-                            <validation-provider
-                              name="Candidate status"
-                              v-slot="{ errors }"
-                            >
-                              <v-autocomplete
-                                v-model="editedItem.status"
-                                :items="workerStatuses"
-                                item-text="description"
-                                item-value="descpription"
-                                :label="$t('candidates_model_status')"
-                                :error-messages="errors"
-                              ></v-autocomplete>
-                            </validation-provider>
-                          </v-col>
-                          <v-col cols="4">
-                            <validation-provider
-                              name="Candidate company"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.company"
-                                :label="$t('candidates_model_company')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="4" offset="4">
-                            <validation-provider
-                              name="Candidate desired salary"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                v-model="editedItem.desired_salary"
-                                :label="$t('candidates_model_desired_salary')"
-                                :error-messages="errors"
-                              ></v-text-field>
-                            </validation-provider>
-                          </v-col>
-                        </v-row>
-                      </validation-observer>
+                      <v-col cols="8" offset="2">
+                        <v-tabs v-model="tab" grow>
+                          <v-tab>{{ $t("candidates_modal_details") }}</v-tab>
+                          <v-tab>{{ $t("candidates_modal_education") }}</v-tab>
+                          <v-tab>{{ $t("candidates_modal_skills") }}</v-tab>
+                          <v-tab>{{
+                            $t("candidates_modal_worker_status")
+                          }}</v-tab>
+                        </v-tabs>
+                        <v-tabs-items v-model="tab">
+                          <validation-observer ref="obs1">
+                            <v-tab-item>
+                              <v-card flat>
+                                <v-card-text>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate name"
+                                        rules="required"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.name"
+                                          :label="$t('candidates_model_name')"
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate surname"
+                                        rules="required"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.surname"
+                                          :label="
+                                            $t('candidates_model_surname')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate email"
+                                        rules="email"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.email"
+                                          :label="$t('candidates_model_email')"
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate phone"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.phone"
+                                          :label="$t('candidates_model_phone')"
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate LinkedIn"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.linkedin"
+                                          :label="
+                                            $t('candidates_model_linkedin')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate city"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.city"
+                                          :label="$t('candidates_model_city')"
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                </v-card-text>
+                              </v-card>
+                            </v-tab-item>
+
+                            <v-tab-item>
+                              <v-card flat>
+                                <v-card-text>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate education"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.education"
+                                          :label="
+                                            $t('candidates_model_education')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate department"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.department"
+                                          :label="
+                                            $t('candidates_model_department')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                </v-card-text>
+                              </v-card>
+                            </v-tab-item>
+
+                            <v-tab-item>
+                              <v-card flat>
+                                <v-card-text>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate primary skill"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-autocomplete
+                                          v-model="editedItem.primary_skill"
+                                          :items="skills"
+                                          item-text="description"
+                                          item-value="description"
+                                          :label="
+                                            $t('candidates_model_primary_skill')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-autocomplete>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate secondary skill"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-autocomplete
+                                          v-model="editedItem.secondary_skill"
+                                          :items="skills"
+                                          item-text="description"
+                                          item-value="description"
+                                          :label="
+                                            $t(
+                                              'candidates_model_secondary_skill'
+                                            )
+                                          "
+                                          :error-messages="errors"
+                                        ></v-autocomplete>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate other skill"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.other_skills"
+                                          :label="
+                                            $t('candidates_model_other_skills')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate experience"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-autocomplete
+                                          v-model="editedItem.experience"
+                                          :items="experiences"
+                                          item-text="name"
+                                          item-value="name"
+                                          :label="
+                                            $t('candidates_model_experience')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-autocomplete>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                </v-card-text>
+                              </v-card>
+                            </v-tab-item>
+                            <v-tab-item>
+                              <v-card flat>
+                                <v-card-text>
+                                  <v-row>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate status"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-autocomplete
+                                          v-model="editedItem.status"
+                                          :items="workerStatuses"
+                                          item-text="description"
+                                          item-value="descpription"
+                                          :label="$t('candidates_model_status')"
+                                          :error-messages="errors"
+                                        ></v-autocomplete>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col cols="6">
+                                      <validation-provider
+                                        name="Candidate company"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.company"
+                                          :label="
+                                            $t('candidates_model_company')
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                  <v-row>
+                                    <v-col cols="6" offset="3">
+                                      <validation-provider
+                                        name="Candidate desired salary"
+                                        v-slot="{ errors }"
+                                      >
+                                        <v-text-field
+                                          v-model="editedItem.desired_salary"
+                                          :label="
+                                            $t(
+                                              'candidates_model_desired_salary'
+                                            )
+                                          "
+                                          :error-messages="errors"
+                                        ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                  </v-row>
+                                </v-card-text>
+                              </v-card>
+                            </v-tab-item>
+                          </validation-observer>
+                        </v-tabs-items>
+                      </v-col>
                     </v-container>
                   </v-card-text>
 
@@ -484,7 +518,8 @@ export default {
     total: 0,
     search: "",
     deleteDialog: false,
-    selectedItemId: null
+    selectedItemId: null,
+    tab: 0
   }),
 
   computed: {
@@ -592,6 +627,7 @@ export default {
       this.skills = [];
       this.experiences = [];
       this.workerStatuses = [];
+      this.tab = 0;
     },
     submit() {
       this.$refs.obs1.validate().then(result => {

@@ -30,7 +30,8 @@ export default {
 
   async delete(context, payload) {
     let result = await Vue.prototype.$repos.UserRepository.delete(
-      payload.userId
+      payload.userId,
+      payload.isAdmin
     );
     if (result && result.data) {
       return result.data;

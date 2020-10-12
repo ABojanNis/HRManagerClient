@@ -317,7 +317,10 @@ export default {
     }),
     ...mapMutations({
       setFetchLoading: "app/setFetchLoading",
-      setLoading: "app/setLoading"
+      setLoading: "app/setLoading",
+      setUser: "app/setMe",
+      setUserName: "app/setName",
+      setUserSurname: "app/setSurname"
     }),
     initialize() {
       this.setFetchLoading(true);
@@ -347,7 +350,10 @@ export default {
 
     deleteItem() {
       this.setLoading(true);
-      this.deleteUser({ userId: this.selectedItemId })
+      this.deleteUser({
+        userId: this.selectedItemId,
+        isAdmin: this.user.is_admin
+      })
         .then(response => {
           if (response) {
             this.$toast.error(response.message);
@@ -381,6 +387,10 @@ export default {
                     this.pagination.page,
                     this.pagination.itemsPerPage
                   );
+                  if (this.user.id === response.user._id) {
+                    this.setUserName(response.user.name);
+                    this.setUserSurname(response.user.surname);
+                  }
                   this.close();
                 }
               })
